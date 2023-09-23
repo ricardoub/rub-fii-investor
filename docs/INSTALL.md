@@ -119,3 +119,31 @@ window.Alpine = Alpine
 ```bash
 npm run build
 ```
+
+## ROLES
+
+```bash
+composer require santigarcor/laratrust
+php artisan vendor:publish --tag="laratrust"
+php artisan laratrust:setup
+```
+
+### Editar o model [User] conforme abaixo
+
+```php
+use Laratrust\Contracts\LaratrustUser;
+use Laratrust\Traits\HasRolesAndPermissions;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable implements LaratrustUser
+{
+    use HasRolesAndPermissions;
+
+    // ...
+}
+```
+
+```bash
+composer dump-autoload
+php artisan migrate
+```
