@@ -9,7 +9,7 @@ npm run dev
 npm run build
 ```
 
-## GIT
+## FIRST COMMIT
 
 ```bash
 git init
@@ -19,3 +19,4 @@ git add .
 git commit -m "FIRST COMMIT: laravel install"
 git push -u origin main
 ```
+
