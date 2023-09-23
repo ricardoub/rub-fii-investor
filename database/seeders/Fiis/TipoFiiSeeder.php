@@ -16,6 +16,8 @@ class TipoFiiSeeder extends Seeder
     {
         $this->seed_categoriaTijolo();
         $this->seed_categoriaPapel();
+        $this->seed_categoriaFof();
+        $this->seed_categoriaHibrido();
 
         //$fof = FiiCategory::where('codigo', 'FOF')->first();
         //$hibrido = FiiCategory::where('codigo', 'HIBRIDO')->first();
@@ -161,6 +163,32 @@ class TipoFiiSeeder extends Seeder
                 'nome' => 'FII - FIDC',
                 'categoria_id' => $papel->id,
                 'descricao' => 'COTAS DE FUNDOS DE INVESTIMENTO EM DIREITOS CREDITÓRIOS - é um investimento de renda fixa. Seu rendimento está atrelado a uma taxa previamente acordada.',
+            ],
+        );
+    }
+    private function seed_categoriaFof()
+    {
+        $fof = CategoriaFii::where('sigla', 'FOF')->first();
+        $fof1 = TipoFii::updateOrCreate(
+            ['sigla' => 'FOF'],
+            [
+                'sigla' => 'FOF',
+                'nome' => 'FII - FOF',
+                'categoria_id' => $fof->id,
+                'descricao' => 'FUNDOS DE FUNDOS - investem 95% de seu capital em cotas de outros fundos. Objetivo diluir custos, otimizar ganhos.',
+            ],
+        );
+    }
+    private function seed_categoriaHibrido()
+    {
+        $fof = CategoriaFii::where('sigla', 'HIBRIDO')->first();
+        $fof1 = TipoFii::updateOrCreate(
+            ['sigla' => 'HIBRIDO'],
+            [
+                'sigla' => 'HIBRIDO',
+                'nome' => 'FII - HIBRIDO',
+                'categoria_id' => $fof->id,
+                'descricao' => 'FUNDOS HIBRIDOS - investem em uma mescla de ativos do setor imobiliário.',
             ],
         );
     }
