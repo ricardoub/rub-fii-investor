@@ -10,6 +10,8 @@ export default {
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
         './resources/views/**/*.js',
+
+        "./node_modules/tw-elements/dist/js/**/*.js"
     ],
 
     theme: {
@@ -20,5 +22,6 @@ export default {
         },
     },
 
-    plugins: [forms, typography],
+    darkMode: "class",
+    plugins: [forms, typography, require("tw-elements/dist/plugin.cjs")]
 };

@@ -142,6 +142,28 @@
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+
+            <div id="adminAccordion">
+                <h2 class="mb-0" id="adminAccordion_headingOne">
+                    <button type="button" data-te-collapse-init data-te-collapse-collapsed data-te-target="#adminAccordion_collapseOne" aria-controls="adminAccordion_collapseOne"
+                        class="group relative flex w-full px-5 py-2 text-left text-indigo-700 bg-indigo-50">
+                        Admin
+                        <span class="-mr-1 ml-auto h-5 w-5 rotate-[-180deg] group-[[data-te-collapse-collapsed]]:rotate-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                        </span>
+                    </button>
+                </h2>
+                <div id="adminAccordion_collapseOne" data-te-collapse-item
+                    class="collapse text-indigo-700 bg-indigo-50 px-5"
+                    >
+                    <x-responsive-nav-link href="dashboard" :active="request()->routeIs('dashboard')">
+                        {{ __('Admin Collapse 1') }}
+                    </x-responsive-nav-link>
+                </div>
+            </div>
+
         </div>
 
         <!-- Responsive Settings Options -->

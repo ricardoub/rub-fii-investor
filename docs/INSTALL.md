@@ -120,6 +120,55 @@ window.Alpine = Alpine
 npm run build
 ```
 
+## TAILWIND-ELEMENTS
+
+```bash
+npm install tw-elements
+```
+
+### Editar o arquivo [tailwind.config.js] e incluir as configurações do tw-elements
+
+```js
+import defaultTheme from 'tailwindcss/defaultTheme';
+import forms from '@tailwindcss/forms';
+import typography from '@tailwindcss/typography';
+
+/** @type {import('tailwindcss').Config} */
+export default {
+    content: [
+        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
+        './vendor/laravel/jetstream/**/*.blade.php',
+        './storage/framework/views/*.php',
+        './resources/views/**/*.blade.php',
+        './resources/views/**/*.js',
+
+        "./node_modules/tw-elements/dist/js/**/*.js"
+    ],
+
+    theme: {
+        extend: {
+            fontFamily: {
+                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+            },
+        },
+    },
+
+    darkMode: "class",
+    plugins: [require("tw-elements/dist/plugin.cjs")]
+};
+```
+
+### Editar o arquivo [resources/js/app.js] e incluir as configurações do tw-elements
+
+```javascript
+import { Datepicker, Input, initTE } from "tw-elements";
+initTE({ Datepicker, Input });
+```
+
+```bash
+npm run build
+```
+
 ## ROLES
 
 ```bash
