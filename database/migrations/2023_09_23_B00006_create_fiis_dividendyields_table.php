@@ -30,17 +30,17 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('fii_id');
 
-            $table->decimal('valor_mes_1', $precision = 9, $scale = 2);
-            $table->decimal('valor_mes_3', $precision = 9, $scale = 2);
-            $table->decimal('valor_mes_6', $precision = 9, $scale = 2);
-            $table->decimal('valor_mes_12', $precision = 9, $scale = 2);
-            $table->decimal('valor_desde_ipo', $precision = 12, $scale = 2);
+            $table->decimal('valor_mes_1', $precision = 9, $scale = 2)->nullable();
+            $table->decimal('valor_mes_3', $precision = 9, $scale = 2)->nullable();
+            $table->decimal('valor_mes_6', $precision = 9, $scale = 2)->nullable();
+            $table->decimal('valor_mes_12', $precision = 9, $scale = 2)->nullable();
+            $table->decimal('valor_desde_ipo', $precision = 12, $scale = 2)->nullable();
 
-            $table->decimal('percentual_mes_1', $precision = 5, $scale = 2);
-            $table->decimal('percentual_mes_3', $precision = 5, $scale = 2);
-            $table->decimal('percentual_mes_6', $precision = 5, $scale = 2);
-            $table->decimal('percentual_mes_12', $precision = 5, $scale = 2);
-            $table->decimal('percentual_desde_ipo', $precision = 9, $scale = 2);
+            $table->decimal('percentual_mes_1', $precision = 5, $scale = 2)->nullable();
+            $table->decimal('percentual_mes_3', $precision = 5, $scale = 2)->nullable();
+            $table->decimal('percentual_mes_6', $precision = 5, $scale = 2)->nullable();
+            $table->decimal('percentual_mes_12', $precision = 5, $scale = 2)->nullable();
+            $table->decimal('percentual_desde_ipo', $precision = 9, $scale = 2)->nullable();
 
             $table->timestamps();
 

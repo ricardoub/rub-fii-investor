@@ -10,4 +10,9 @@ class AdministradoraFii extends Model
     protected $table = 'fiis_administradoras';
 
     use HasFactory;
+
+    public function fiis()
+    {
+        return $this->hasMany(Fii::class);
+    }
 }

@@ -34,7 +34,7 @@ return new class extends Migration
             $table->date('data_pagamento');
             $table->decimal('valor_cota', $precision = 10, $scale = 2);
             $table->decimal('valor_rendimento', $precision = 10, $scale = 2);
-            $table->decimal('dividend_yield', $precision = 5, $scale = 2);
+            $table->decimal('dividend_yield', $precision = 5, $scale = 2)->nullable();
 
             $table->timestamps();
 

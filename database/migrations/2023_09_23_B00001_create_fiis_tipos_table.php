@@ -13,15 +13,12 @@ return new class extends Migration
     {
         Schema::create('fiis_tipos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('categoria_id');
 
             $table->string('sigla', 15);
-            $table->string('nome', 100);
-            $table->string('descricao', 255);
+            $table->string('nome', 100)->nullable();
+            $table->string('descricao', 255)->nullable();
 
             $table->timestamps();
-
-            $table->foreign('categoria_id')->references('id')->on('fiis_categorias');
         });
     }
 

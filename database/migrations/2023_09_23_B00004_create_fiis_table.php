@@ -15,23 +15,25 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('administradora_id');
             $table->unsignedBigInteger('tipo_id');
+            $table->unsignedBigInteger('segmento_id');
 
 
             $table->string('codigo', 25);
             $table->string('nome', 255);
-            $table->string('descricao', 255);
-            $table->string('cnpj',16);
-            $table->string('prazo_duracao', 25);
-            $table->smallInteger('dia_data_com');
+            $table->text('descricao', 255)->nullable();
+            $table->string('cnpj',16)->nullable();
+            $table->string('prazo_duracao', 25)->nullable();
+            $table->smallInteger('dia_data_com')->nullable();
 
-            $table->decimal('taxa_de_administracao', $precision = 6, $scale = 3);
-            $table->decimal('taxa_de_gestao', $precision = 6, $scale = 3);
-            $table->decimal('taxa_de_performance', $precision = 6, $scale = 3);
+            $table->decimal('taxa_de_administracao', $precision = 6, $scale = 3)->nullable();
+            $table->decimal('taxa_de_gestao', $precision = 6, $scale = 3)->nullable();
+            $table->decimal('taxa_de_performance', $precision = 6, $scale = 3)->nullable();
 
             $table->timestamps();
 
             $table->foreign('administradora_id')->references('id')->on('fiis_administradoras');
             $table->foreign('tipo_id')->references('id')->on('fiis_tipos');
+            $table->foreign('segmento_id')->references('id')->on('fiis_segmentos');
         });
     }
 

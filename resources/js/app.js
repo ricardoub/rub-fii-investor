@@ -1,4 +1,4 @@
 import './bootstrap';
 
-import { Datepicker, Input, Collapse, initTE } from "tw-elements";
-initTE({ Datepicker, Input, Collapse });
+import { Collapse, Datepicker, initTE, Input, Ripple } from "tw-elements";
+initTE({ Collapse, Datepicker, Input, Ripple });

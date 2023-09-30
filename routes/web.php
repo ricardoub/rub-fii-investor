@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+//use App\Http\Controllers\Fiis\FiiController;
+use App\Http\Controllers\Fiis\FiiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,18 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
+
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::name('fiis.')->prefix('fiis')->group(function () {
+        Route::get('', [FiiController::class, 'index'])->name('index');
+        Route::post('', [FiiController::class, 'index'])->name('index');
+
+        Route::get('/create', [FiiController::class, 'create'])->name('create');
+        Route::post('/store', [FiiController::class, 'store'])->name('store');
+
+    });
+
 });

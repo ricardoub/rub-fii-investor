@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('fiis_categorias', function (Blueprint $table) {
+        Schema::create('fiis_segmentos', function (Blueprint $table) {
             $table->id();
 
             $table->string('sigla', 15);
-            $table->string('nome', 100);
-            $table->string('descricao', 255);
+            $table->string('nome', 100)->nullable();
+            $table->string('descricao', 255)->nullable();
 
             $table->timestamps();
         });
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fiis_categorias');
+        Schema::dropIfExists('fiis_segmentos');
     }
 };

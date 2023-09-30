@@ -32,9 +32,9 @@ return new class extends Migration
 
             $table->date('data_da_posicao');
             $table->decimal('cota_valor_mercado', $precision = 10, $scale = 2);
-            $table->decimal('cota_valor_patrimonial', $precision = 10, $scale = 2);
-            $table->decimal('cota_pvp', $precision = 5, $scale = 2);
-            $table->decimal('valor_patrimonio_liquido', $precision = 17, $scale = 2);
+            $table->decimal('cota_valor_patrimonial', $precision = 10, $scale = 2)->nullable();
+            $table->decimal('cota_pvp', $precision = 5, $scale = 2)->nullable();
+            $table->decimal('valor_patrimonio_liquido', $precision = 17, $scale = 2)->nullable();
 
             $table->timestamps();
 

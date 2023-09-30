@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
-use Database\Seeders\Fiis\CategoriaFiiSeeder;
+use Database\Seeders\Fiis\SegmentoFiiSeeder;
 use Database\Seeders\Fiis\TipoFiiSeeder;
 use Illuminate\Database\Seeder;
 
@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
         $this->call(PermissionSeeder::class);
-        $this->call(CategoriaFiiSeeder::class);
         $this->call(TipoFiiSeeder::class);
+        $this->call(SegmentoFiiSeeder::class);
     }
 }
