@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Fiis;
 
 use App\Http\Controllers\Controller;
+use App\Models\Fiis\AdministradoraFii;
 use App\Models\Fiis\Fii;
+use App\Models\Fiis\SegmentoFii;
+use App\Models\Fiis\TipoFii;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class FiiController extends Controller
 {
@@ -33,7 +37,9 @@ class FiiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $fii = Fii::create($request);
+
+        return redirect()->route('fiis.index');
     }
 
     /**
@@ -41,7 +47,9 @@ class FiiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $fii = Fii::find($id);
+
+        return view('fiis.show', compact('fii'));
     }
 
     /**
@@ -49,7 +57,19 @@ class FiiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $fii = Fii::find($id);
+        Log::debug($fii);
+
+        $tipos = TipoFii::orderBy('nome', 'ASC')->get();
+        $segmentos = SegmentoFii::orderBy('nome', 'ASC')->get();
+        $administradoras = AdministradoraFii::orderBy('nome', 'ASC')->get();
+
+        return view('fiis.edit', [
+            'fii' => $fii,
+            'tipos' => $tipos,
+            'segmentos' => $segmentos,
+            'administradoras' => $administradoras,
+        ]);
     }
 
     /**
@@ -57,7 +77,12 @@ class FiiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        //ddd($request);
+
+        $fii = Fii::find($id);
+        $fii->update($request->all());
+
+        return redirect()->route('fiis.index');
     }
 
     /**

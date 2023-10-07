@@ -9,6 +9,25 @@ class Fii extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+
+        'administradora_id',
+        'tipo_id',
+        'segmento_id',
+
+        'codigo',
+        'nome',
+        'descricao',
+        'caracteristicas',
+        'cnpj',
+        'prazo_duracao',
+        'dia_data_com',
+        'taxa_de_administracao',
+        'taxa_de_gestao',
+        'taxa_de_performance',
+
+    ];
+
     public function tipo()
     {
         return $this->belongsTo(TipoFii::class);
