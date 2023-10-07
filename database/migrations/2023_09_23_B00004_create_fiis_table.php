@@ -21,7 +21,8 @@ return new class extends Migration
             $table->string('codigo', 25);
             $table->string('nome', 255);
             $table->text('descricao', 255)->nullable();
-            $table->string('cnpj',16)->nullable();
+            $table->text('caracteristicas', 255)->nullable();
+            $table->string('cnpj',18)->nullable();
             $table->string('prazo_duracao', 25)->nullable();
             $table->smallInteger('dia_data_com')->nullable();
 

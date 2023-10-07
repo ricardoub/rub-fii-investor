@@ -23,8 +23,8 @@
             @livewire('navigation-menu')
         </header>
 
-
         <section>
+            @yield('page-header')
             @yield('content')
         </section>
         <aside>

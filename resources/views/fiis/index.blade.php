@@ -1,5 +1,7 @@
 @extends('layouts.fii')
 
+@section('page-header')
+@endsection
 @section('content')
 
     <div class="flex border-b">
@@ -53,8 +55,8 @@
                         <td class="px-3 py-2">{{ $fii->segmento->nome }}</td>
                         <td class="px-3 py-2">{{ $fii->administradora->nome }}</td>
                         <td class="px-3 py-2">{{ $fii->dia_data_com }}</td>
-                        <td class="px-3 py-2">{!! Str::limit($fii->descricao, 255, ' ...') !!}</td>
-                        <td class="px-3 py-2">{!! Str::limit($fii->caracteristicas, 255, ' ...') !!}</td>
+                        <td class="px-3 py-2">{!! Str::limit($fii->descricao, 150, ' ...') !!}</td>
+                        <td class="px-3 py-2">{!! Str::limit($fii->caracteristicas, 200, ' ...') !!}</td>
                         <td class="px-3 py-2">
                             <div class="" role="group">
                                 <a href="{{ route('fiis.edit', $fii->id) }}" class="flex px-5 py-3 bg-neutral-200 hover:rounded-xl hover:bg-primary-500 hover:text-white">
@@ -69,10 +71,5 @@
 
         </table>
     </div>
-
-
-
-
-
 
 @endsection

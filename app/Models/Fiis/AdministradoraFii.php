@@ -11,6 +11,14 @@ class AdministradoraFii extends Model
 
     use HasFactory;
 
+    protected $fillable = [
+        'nome',
+        'cnpj',
+        'telefone',
+        'email',
+        'site',
+    ];
+
     public function fiis()
     {
         return $this->hasMany(Fii::class);

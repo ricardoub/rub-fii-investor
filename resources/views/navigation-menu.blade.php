@@ -18,6 +18,9 @@
                     <x-nav-link href="{{ route('fiis.index') }}" :active="request()->routeIs('fiis.index')">
                         {{ __('FII') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('administradoras.index') }}" :active="request()->routeIs('administradoras.index')">
+                        {{ __('Administradoras') }}
+                    </x-nav-link>
                 </div>
             </div>
 

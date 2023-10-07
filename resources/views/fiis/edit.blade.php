@@ -16,40 +16,19 @@
 
     <div class="mt-2 bg-neutral-100 w-3/4 mx-auto rounded-lg shadow-[0_5px_9px_-4px_#3b71ca]">
 
-        <form method="post" action="{{ route('fiis.update', $fii->id) }}">
+        <form x-data method="post" action="{{ route('fiis.update', $fii->id) }}">
             @csrf
 
             <div class="w-full p-2">
                 <div class="flex items-center">
-                    <label class="flex w-40 text-right p-2" for="nome">Razão Social (Nome)</label>
-                    <input class="flex-auto rounded-md" type="text" class="" name="nome" id="nome" value="{{ $fii->nome }}"/>
-                </div>
-            </div>
-
-            <div class="w-full p-2">
-                <div class="flex items-center">
-                    <label class="flex w-40 text-right p-2" for="cnpj">   CNPJ</label>
-                    <input class="flex-auto rounded-md" type="text" class="" name="cnpj" id="cnpj" value="{{ $fii->cnpj }}"/>
-                </div>
-            </div>
-
-            <div class="w-full p-2">
-                <div class="flex items-center">
-                    <label class="flex w-40 text-right p-2" for="codigo">Nome Pregão (Código))</label>
-                    <input class="flex-auto rounded-md" type="text" class="" name="codigo" id="codigo" value="{{ $fii->codigo }}"/>
-                </div>
-            </div>
-
-            <div class="w-full p-2">
-                <div class="flex items-center">
-                    <label class="flex w-40 text-right p-2" for="segmento_id">Segmento AMBIMA</label>
-                    <select class="flex-auto rounded-md" name="segmento_id" id="segmento_id" >
-                        @foreach ($segmentos as $segmento)
-                            <option value="{{ $segmento->id }}"
-                                @if ($fii->segmento_id == $segmento->id)
+                    <label class="flex w-40 text-right p-2" for="administradora_id">Administradora</label>
+                    <select class="flex-auto rounded-md" name="administradora_id" id="administradora_id" >
+                        @foreach ($administradoras as $administradora)
+                            <option value="{{ $administradora->id }}"
+                                @if ($fii->administradora_id == $administradora->id)
                                     selected="selected"
                                 @endif>
-                                {{ $segmento->nome }}
+                                {{ $administradora->nome }}
                             </option>
                         @endforeach
                     </select>
@@ -74,19 +53,34 @@
 
             <div class="w-full p-2">
                 <div class="flex items-center">
-                    <label class="flex w-40 text-right p-2" for="administradora_id">Administradora</label>
-                    <select class="flex-auto rounded-md" name="administradora_id" id="administradora_id" >
-                        @foreach ($administradoras as $administradora)
-                            <option value="{{ $administradora->id }}"
-                                @if ($fii->administradora_id == $administradora->id)
+                    <label class="flex w-40 text-right p-2" for="segmento_id">Segmento AMBIMA</label>
+                    <select class="flex-auto rounded-md" name="segmento_id" id="segmento_id" >
+                        @foreach ($segmentos as $segmento)
+                            <option value="{{ $segmento->id }}"
+                                @if ($fii->segmento_id == $segmento->id)
                                     selected="selected"
                                 @endif>
-                                {{ $administradora->nome }}
+                                {{ $segmento->nome }}
                             </option>
                         @endforeach
                     </select>
                 </div>
             </div>
+
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="codigo">Nome Pregão (Código))</label>
+                    <input class="flex-auto rounded-md" type="text" class="" name="codigo" id="codigo" value="{{ $fii->codigo }}"/>
+                </div>
+            </div>
+
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="nome">Razão Social (Nome)</label>
+                    <input class="flex-auto rounded-md" type="text" class="" name="nome" id="nome" value="{{ $fii->nome }}"/>
+                </div>
+            </div>
+
 
             <div class="w-full p-2">
                 <div class="flex items-center">
@@ -102,6 +96,47 @@
                 </div>
             </div>
 
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="cnpj">CNPJ</label>
+                    <input x-mask="99.999.999/9999-99" class="flex-auto rounded-md" type="text" class="" name="cnpj" id="cnpj" value="{{ $fii->cnpj }}"/>
+                </div>
+            </div>
+
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="prazo_duracao">Prazo duracao</label>
+                    <input class="flex-auto rounded-md" type="text" class="" name="prazo_duracao" id="prazo_duracao" value="{{ $fii->prazo_duracao }}" />
+                </div>
+            </div>
+
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="dia_data_com">Dia Data Com</label>
+                    <input class="flex-auto rounded-md" type="text" class="" name="dia_data_com" id="dia_data_com" value="{{ $fii->dia_data_com }}" />
+                </div>
+            </div>
+
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="taxa_de_administracao">Taxa de administração</label>
+                    <input class="flex-auto rounded-md" type="text" class="" name="taxa_de_administracao" id="taxa_de_administracao" value="{{ $fii->taxa_de_administracao }}" />
+                </div>
+            </div>
+
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="taxa_de_gestao">Taxa de gestão</label>
+                    <input class="flex-auto rounded-md" type="text" class="" name="taxa_de_gestao" id="taxa_de_gestao" value="{{ $fii->taxa_de_gestao }}" />
+                </div>
+            </div>
+
+            <div class="w-full p-2">
+                <div class="flex items-center">
+                    <label class="flex w-40 text-right p-2" for="taxa_de_performance">Taxa de performance</label>
+                    <input class="flex-auto rounded-md" type="text" class="" name="taxa_de_performance" id="taxa_de_performance" value="{{ $fii->taxa_de_performance }}" />
+                </div>
+            </div>
 
             <div class="w-full p-2">
                 <div class="flex items-center">
