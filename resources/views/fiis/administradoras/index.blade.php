@@ -9,7 +9,7 @@
         </div>
         <div class="grow items-center px-6 py-3">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight flex px-5 py-3">
-                {{ __('Cadastro Administradoras de FIIs') }}
+                {{ __('Cadastro Administradoras') }}
             </h2>
         </div>
         <div class="flex items-center px-6 py-3">

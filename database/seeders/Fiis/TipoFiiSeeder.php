@@ -23,6 +23,14 @@ class TipoFiiSeeder extends Seeder
                 'descricao' => 'Fundos imobiliários que investem em imóveis reais'
             ],
         );
+        $renda = TipoFii::updateOrCreate(
+            ['sigla' => 'RENDA_TIJOLO'],
+            [
+                'sigla' => 'RENDA_TIJOLO',
+                'nome' => 'RENDA - TIJOLO',
+                'descricao' => 'Fundos imobiliários que investem em sua maioria em empreendimentos físicos'
+            ],
+        );
 
         $papel = TipoFii::updateOrCreate(
             ['sigla' => 'PAPEL'],

@@ -26,7 +26,11 @@ class AdministradoraFiiController extends Controller
      */
     public function create()
     {
-        //
+        $administradora = new AdministradoraFii();
+
+        return view('fiis.administradoras.create', [
+            'administradora' => $administradora,
+        ]);
     }
 
     /**
@@ -34,7 +38,15 @@ class AdministradoraFiiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $requestAll = $request->all();
+        if ($request['data_inicio']) {
+            $dtInicio = explode('/', $requestAll['data_inicio']);
+            $request['data_inicio'] = "$dtInicio[2]-$dtInicio[1]-$dtInicio[0]";
+        }
+
+        $fii = AdministradoraFii::create($request->all());
+
+        return redirect()->route('administradoras.index');
     }
 
     /**

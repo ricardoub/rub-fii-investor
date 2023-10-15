@@ -17,9 +17,10 @@ class FiiController extends Controller
      */
     public function index()
     {
-        $fiis = Fii::all();
+        $fiis = Fii::orderBy('codigo', 'asc')->get();
 
         return view('fiis.index', compact('fiis'));
+
     }
 
     /**
@@ -28,8 +29,21 @@ class FiiController extends Controller
     public function create()
     {
         $fii = new Fii;
+        $fii->administradora_id = 0;
+        $fii->tipo_id = 0;
+        $fii->segmento_id = 0;
 
-        return view('fiis.create', compact('fii'));
+        $tipos = TipoFii::orderBy('nome', 'ASC')->get();
+        $segmentos = SegmentoFii::orderBy('nome', 'ASC')->get();
+        $administradoras = AdministradoraFii::orderBy('nome', 'ASC')->get();
+
+        return view('fiis.create', [
+            'fii' => $fii,
+            'tipos' => $tipos,
+            'segmentos' => $segmentos,
+            'administradoras' => $administradoras,
+        ]);
+
     }
 
     /**
@@ -37,7 +51,13 @@ class FiiController extends Controller
      */
     public function store(Request $request)
     {
-        $fii = Fii::create($request);
+        $requestAll = $request->all();
+        if ($request['data_inicio']) {
+            $dtInicio = explode('/', $requestAll['data_inicio']);
+            $request['data_inicio'] = "$dtInicio[2]-$dtInicio[1]-$dtInicio[0]";
+        }
+
+        $fii = Fii::create($request->all());
 
         return redirect()->route('fiis.index');
     }
@@ -47,6 +67,7 @@ class FiiController extends Controller
      */
     public function show(string $id)
     {
+        ddd(__METHOD__);
         $fii = Fii::find($id);
 
         return view('fiis.show', compact('fii'));
@@ -90,6 +111,7 @@ class FiiController extends Controller
      */
     public function destroy(string $id)
     {
+        ddd(__METHOD__);
         //
     }
 }

@@ -24,7 +24,10 @@ return new class extends Migration
             $table->text('caracteristicas', 255)->nullable();
             $table->string('cnpj',18)->nullable();
             $table->string('prazo_duracao', 25)->nullable();
+            $table->date('data_inicio')->nullable();
+            $table->date('data_termino')->nullable();
             $table->smallInteger('dia_data_com')->nullable();
+            $table->string('url_fundsexplorer')->nullable();
 
             $table->decimal('taxa_de_administracao', $precision = 6, $scale = 3)->nullable();
             $table->decimal('taxa_de_gestao', $precision = 6, $scale = 3)->nullable();
