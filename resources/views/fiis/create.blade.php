@@ -79,7 +79,7 @@
 
             <div class="grid grid-cols-3 items-center">
                 <label class="text-right p-2" for="codigo">
-                    Nome Pregão <span class="text-gray-500">(Código)</span>
+                    Código
                 </label>
                 <div class="col-span-2">
                     <input class="w-full rounded-md" type="text" class="" name="codigo" id="codigo" value="{{ $fii->codigo }}"/>
@@ -87,11 +87,20 @@
             </div>
 
             <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="nome">
-                    Razão social <span class="text-gray-500">(Nome)</span>
+                <label class="text-right p-2" for="nome_pregao">
+                    Nome Pregão
                 </label>
                 <div class="col-span-2">
-                    <input class="w-full rounded-md" type="text" class="" name="nome" id="nome" value="{{ $fii->nome }}"/>
+                    <input class="w-full rounded-md" type="text" class="" name="nome_pregao" id="nome_pregao" value="{{ $fii->nome_pregao }}"/>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 items-center">
+                <label class="text-right p-2" for="razao_social">
+                    Razão social
+                </label>
+                <div class="col-span-2">
+                    <input class="w-full rounded-md" type="text" class="" name="razao_social" id="razao_social" value="{{ $fii->razao_social }}"/>
                 </div>
             </div>
 

@@ -16,7 +16,8 @@ class Fii extends Model
         'segmento_id',
 
         'codigo',
-        'nome',
+        'nome_pregao',
+        'razao_social',
         'descricao',
         'caracteristicas',
         'cnpj',

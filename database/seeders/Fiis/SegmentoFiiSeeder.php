@@ -111,7 +111,7 @@ class SegmentoFiiSeeder extends Seeder
             ['sigla' => 'LCI'],
             [
                 'sigla' => 'LCI',
-                'nome' => 'LCI',
+                'nome' => 'LCI - LETRA DE CREDITO IMOBILIARIO',
                 'descricao' => 'LETRA DE CREDITO IMOBILIARIO - Título de Renda Fixa lastreado no crédito imobiliário.',
             ],
         );
@@ -119,7 +119,7 @@ class SegmentoFiiSeeder extends Seeder
             ['sigla' => 'LH'],
             [
                 'sigla' => 'LH',
-                'nome' => 'LH',
+                'nome' => 'LH - LETRAS HIPOTECÁRIAS',
                 'descricao' => 'LETRAS HIPOTECÁRIAS - Título de Renda Fixa lastreado no crédito imobiliário de hipoteca.',
             ],
         );

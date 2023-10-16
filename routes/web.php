@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Fiis\FiiController;
 use App\Http\Controllers\Fiis\AdministradoraFiiController;
+use App\Http\Controllers\Fiis\DividendYieldFiiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +57,17 @@ Route::middleware([
 
     });
 
+    Route::name('dividendos.')->prefix('dividendos')->group(function () {
+
+        Route::get('', [DividendYieldFiiController::class, 'index'])->name('index');
+        Route::post('', [DividendYieldFiiController::class, 'index'])->name('index');
+
+        Route::get('/create', [DividendYieldFiiController::class, 'create'])->name('create');
+        Route::post('/store', [DividendYieldFiiController::class, 'store'])->name('store');
+
+        Route::get('/{id}/show', [DividendYieldFiiController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [DividendYieldFiiController::class, 'edit'])->name('edit');
+        Route::post('/{id}/update', [DividendYieldFiiController::class, 'update'])->name('update');
+
+    });
 });

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->unsignedBigInteger('tipo_id');
             $table->unsignedBigInteger('segmento_id');
 
-
             $table->string('codigo', 25);
-            $table->string('nome', 255);
+            $table->string('nome_pregao', 255)->nullable();
+            $table->string('razao_social', 255)->nullable();
             $table->text('descricao', 255)->nullable();
             $table->text('caracteristicas', 255)->nullable();
             $table->string('cnpj',18)->nullable();

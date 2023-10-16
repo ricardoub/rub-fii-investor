@@ -14,7 +14,7 @@ class AdministradoraFiiController extends Controller
      */
     public function index()
     {
-        $administradoras = AdministradoraFii::all();
+        $administradoras = AdministradoraFii::orderBy('nome', 'asc')->get();
 
         return view('fiis.administradoras.index', [
             'administradoras' => $administradoras,
@@ -38,12 +38,6 @@ class AdministradoraFiiController extends Controller
      */
     public function store(Request $request)
     {
-        $requestAll = $request->all();
-        if ($request['data_inicio']) {
-            $dtInicio = explode('/', $requestAll['data_inicio']);
-            $request['data_inicio'] = "$dtInicio[2]-$dtInicio[1]-$dtInicio[0]";
-        }
-
         $fii = AdministradoraFii::create($request->all());
 
         return redirect()->route('administradoras.index');
@@ -63,7 +57,6 @@ class AdministradoraFiiController extends Controller
     public function edit(string $id)
     {
         $administradora = AdministradoraFii::find($id);
-        Log::debug($administradora);
 
         //$tipos = TipoFii::orderBy('nome', 'ASC')->get();
         //$segmentos = SegmentoFii::orderBy('nome', 'ASC')->get();
@@ -82,6 +75,7 @@ class AdministradoraFiiController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $administradora = AdministradoraFii::find($id);
         $administradora->update($request->all());
 

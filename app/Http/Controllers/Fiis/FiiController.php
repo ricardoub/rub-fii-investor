@@ -51,13 +51,9 @@ class FiiController extends Controller
      */
     public function store(Request $request)
     {
-        $requestAll = $request->all();
-        if ($request['data_inicio']) {
-            $dtInicio = explode('/', $requestAll['data_inicio']);
-            $request['data_inicio'] = "$dtInicio[2]-$dtInicio[1]-$dtInicio[0]";
-        }
+        $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
-        $fii = Fii::create($request->all());
+        $fii = Fii::create($requestAll);
 
         return redirect()->route('fiis.index');
     }
@@ -79,7 +75,7 @@ class FiiController extends Controller
     public function edit(string $id)
     {
         $fii = Fii::find($id);
-        Log::debug($fii);
+        $fii = $this->setModelFields_toBR_fromEN($fii);
 
         $tipos = TipoFii::orderBy('nome', 'ASC')->get();
         $segmentos = SegmentoFii::orderBy('nome', 'ASC')->get();
@@ -98,10 +94,10 @@ class FiiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //ddd($request);
+        $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
         $fii = Fii::find($id);
-        $fii->update($request->all());
+        $fii->update($requestAll);
 
         return redirect()->route('fiis.index');
     }
@@ -113,5 +109,23 @@ class FiiController extends Controller
     {
         ddd(__METHOD__);
         //
+    }
+
+
+    private function setRequesFields_toEN_fromBR($request)
+    {
+        if ($request['data_inicio']) {
+            $request['data_inicio'] = $this->formatData_toEN_fromBR($request['data_inicio']);
+        }
+
+        return $request;
+    }
+    private function setModelFields_toBR_fromEN($model)
+    {
+        if ($model->data_inicio) {
+            $model->data_inicio = $this->formatData_toBR_fromEN($model->data_inicio);
+        }
+
+        return $model;
     }
 }
