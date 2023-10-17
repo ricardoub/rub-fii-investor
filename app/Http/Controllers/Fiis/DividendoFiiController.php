@@ -3,22 +3,24 @@
 namespace App\Http\Controllers\Fiis;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\Fiis\DividendYieldFii;
-use App\Models\Fiis\Fii;
+use App\Models\Fiis\DividendoFii;
 use App\Services\Common\FormatService;
+use App\Services\Fiis\FiiDBService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
-class DividendYieldFiiController extends Controller
+class DividendoFiiController extends Controller
 {
     private $fs;
+    private $db;
 
     public function __construct(
         FormatService $formatService
+        ,FiiDBService $dbService
     )
     {
         $this->fs = $formatService;
+        $this->db = $dbService;
     }
 
     /**
@@ -26,10 +28,7 @@ class DividendYieldFiiController extends Controller
      */
     public function index()
     {
-        $dividendos = DividendYieldFii::select('*', 'fiis.codigo as fii_codigo')
-            ->leftJoin('fiis', 'fii_id', '=', 'fiis.id')
-            ->orderby('competencia', 'desc')
-            ->orderBy('codigo', 'asc')->get();
+        $dividendos = $this->db->dividendoFii_getAll_joinFii();
 
         return view('fiis.dividendos.index', compact('dividendos'));
     }
@@ -39,12 +38,12 @@ class DividendYieldFiiController extends Controller
      */
     public function create()
     {
-        $dy = new DividendYieldFii;
+        $dy = new DividendoFii;
         $dy->administradora_id = 0;
         $dy->tipo_id = 0;
         $dy->segmento_id = 0;
 
-        $fiis = Fii::orderBy('codigo', 'asc')->get();
+        $fiis = $this->db->fii_getAll();
 
         return view('fiis.dividendos.create', [
             'dy' => $dy,
@@ -61,7 +60,7 @@ class DividendYieldFiiController extends Controller
 
         $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
-        $dy = DividendYieldFii::create($requestAll);
+        $dy = DividendoFii::create($requestAll);
 
         return redirect()->route('dividendos.index');
 
@@ -80,15 +79,14 @@ class DividendYieldFiiController extends Controller
      */
     public function edit(string $id)
     {
-        $dy = DividendYieldFii::find($id);
-        $dy = $this->setModelFields_toBR_fromEN($dy);
+        $dividendo = DividendoFii::find($id);
+        $dividendo = $this->setModelFields_toBR_fromEN($dividendo);
 
-        $fiis = Fii::orderBy('codigo', 'asc')->get();
+        $fiis = $this->db->fii_getAll();
 
         return view('fiis.dividendos.edit', [
-            'dy' => $dy,
+            'dividendo' => $dividendo,
             'fiis' => $fiis,
-
         ]);
     }
 
@@ -99,7 +97,7 @@ class DividendYieldFiiController extends Controller
     {
         $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
-        $dy = DividendYieldFii::find($id);
+        $dy = DividendoFii::find($id);
         $dy->update($requestAll);
 
         return redirect()->route('dividendos.index');

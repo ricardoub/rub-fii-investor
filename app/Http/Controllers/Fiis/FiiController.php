@@ -3,23 +3,29 @@
 namespace App\Http\Controllers\Fiis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fiis\AdministradoraFii;
-use App\Models\Fiis\Fii;
-use App\Models\Fiis\SegmentoFii;
-use App\Models\Fiis\TipoFii;
+//use App\Models\Fiis\AdministradoraFii;
+//use App\Models\Fiis\DividendoFii;
+//use App\Models\Fiis\Fii;
+//use App\Models\Fiis\RendimentoFii;
+//use App\Models\Fiis\SegmentoFii;
+//use App\Models\Fiis\TipoFii;
 use App\Services\Common\FormatService;
+use App\Services\Fiis\FiiDBService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class FiiController extends Controller
 {
     private $fs;
+    private $db;
 
     public function __construct(
         FormatService $formatService
+        ,FiiDBService $dbService
     )
     {
         $this->fs = $formatService;
+        $this->db = $dbService;
     }
 
     /**
@@ -27,10 +33,9 @@ class FiiController extends Controller
      */
     public function index()
     {
-        $fiis = Fii::orderBy('codigo', 'asc')->get();
+        $fiis = $this->db->fii_getAll();
 
         return view('fiis.index', compact('fiis'));
-
     }
 
     /**
@@ -38,20 +43,20 @@ class FiiController extends Controller
      */
     public function create()
     {
-        $fii = new Fii;
+        $fii = $this->db->fii_getNew();
         $fii->administradora_id = 0;
-        $fii->tipo_id = 0;
         $fii->segmento_id = 0;
+        $fii->tipo_id = 0;
 
-        $tipos = TipoFii::orderBy('nome', 'ASC')->get();
-        $segmentos = SegmentoFii::orderBy('nome', 'ASC')->get();
-        $administradoras = AdministradoraFii::orderBy('nome', 'ASC')->get();
+        $administradoras = $this->db->administradoraFii_getAll();
+        $segmentos = $this->db->segmentoFii_getAll();
+        $tipos = $this->db->tipoFii_getAll();
 
         return view('fiis.create', [
             'fii' => $fii,
-            'tipos' => $tipos,
-            'segmentos' => $segmentos,
             'administradoras' => $administradoras,
+            'segmentos' => $segmentos,
+            'tipos' => $tipos,
         ]);
 
     }
@@ -63,7 +68,7 @@ class FiiController extends Controller
     {
         $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
-        $fii = Fii::create($requestAll);
+        $fii = $this->db->fii_create($requestAll);
 
         return redirect()->route('fiis.index');
     }
@@ -73,8 +78,7 @@ class FiiController extends Controller
      */
     public function show(string $id)
     {
-        ddd(__METHOD__);
-        $fii = Fii::find($id);
+        $fii = $this->db->fii_getById($id);
 
         return view('fiis.show', compact('fii'));
     }
@@ -84,18 +88,28 @@ class FiiController extends Controller
      */
     public function edit(string $id)
     {
-        $fii = Fii::find($id);
+        $fii = $this->db->fii_getById($id);
         $fii = $this->setModelFields_toBR_fromEN($fii);
 
-        $tipos = TipoFii::orderBy('nome', 'ASC')->get();
-        $segmentos = SegmentoFii::orderBy('nome', 'ASC')->get();
-        $administradoras = AdministradoraFii::orderBy('nome', 'ASC')->get();
+        $administradoras = $this->db->administradoraFii_getAll();
+        $segmentos = $this->db->segmentoFii_getAll();
+        $tipos = $this->db->tipoFii_getAll();
+
+        //$dividendos = $this->db->dividendoFii_getById_joinFii();
+        //$dividendos = []; //DividendoFii::where('fii_id', $fii->id)->orderBy('competencia', 'ASC')->get();
+        //$rendimentos = []; //RendimentoFii::where('fii_id', $fii->id)->orderBy('competencia', 'ASC')->get();
+
+        Log::debug($fii);
+        Log::debug($fii->dividendos);
+        Log::debug($fii->rendimentos);
 
         return view('fiis.edit', [
             'fii' => $fii,
             'tipos' => $tipos,
             'segmentos' => $segmentos,
             'administradoras' => $administradoras,
+            //'dividendos' => $dividendos,
+            //'rendimentos' => $rendimentos,
         ]);
     }
 
@@ -106,7 +120,7 @@ class FiiController extends Controller
     {
         $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
-        $fii = Fii::find($id);
+        $fii = $this->db->fii_getById($id);
         $fii->update($requestAll);
 
         return redirect()->route('fiis.index');

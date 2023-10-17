@@ -45,4 +45,14 @@ class Fii extends Model
     {
         return $this->belongsTo(AdministradoraFii::class);
     }
+
+    public function dividendos()
+    {
+        return $this->hasMany(DividendoFii::class);
+    }
+
+    public function rendimentos()
+    {
+        return $this->hasMany(RendimentoFii::class);
+    }
 }

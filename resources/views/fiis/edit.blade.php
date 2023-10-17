@@ -16,12 +16,12 @@
 
     <form x-data method="post" action="{{ route('fiis.update', $fii->id) }}">
         @csrf
-        <div class="mt-2 p-5 bg-neutral-100 w-3/4 mx-auto rounded-lg shadow-[0_5px_9px_-4px_#3b71ca] grid grid-cols-2 gap-4">
 
+        <div class="mt-2 p-5 bg-neutral-100 w-5/6 mx-auto rounded-lg shadow-[0_5px_9px_-4px_#3b71ca] grid grid-cols-2 gap-4">
 
-            <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="administradora_id">Administradora</label>
-                <div class="col-span-2">
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="administradora_id">Administradora</label>
+                <div class="col-span-4">
                     <select class="w-full rounded-md" name="administradora_id" id="administradora_id" >
                         @foreach ($administradoras as $administradora)
                             <option value="{{ $administradora->id }}"
@@ -35,9 +35,9 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="tipo_id">Tipo</label>
-                <div class="col-span-2">
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="tipo_id">Tipo</label>
+                <div class="col-span-4">
                     <select class="w-full rounded-md" name="tipo_id" id="tipo_id" >
                         @foreach ($tipos as $tipo)
                             <option value="{{ $tipo->id }}"
@@ -51,9 +51,9 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="segmento_id">Segmento AMBIMA</label>
-                <div class="col-span-2">
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="segmento_id">Segmento AMBIMA</label>
+                <div class="col-span-4">
                     <select class="w-full rounded-md" name="segmento_id" id="segmento_id" >
                         @foreach ($segmentos as $segmento)
                             <option value="{{ $segmento->id }}"
@@ -67,52 +67,53 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="codigo">
-                    Código
-                </label>
-                <div class="col-span-2">
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="codigo">Código</label>
+                <div class="col-span-4">
                     <input class="w-full rounded-md" type="text" class="" name="codigo" id="codigo" value="{{ old('codigo', $fii->codigo) }}"/>
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="nome_pregao">
-                    Nome Pregão
-                </label>
-                <div class="col-span-2">
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="nome_pregao">Nome Pregão</label>
+                <div class="col-span-4">
                     <input class="w-full rounded-md" type="text" class="" name="nome_pregao" id="nome_pregao" value="{{ $fii->nome_pregao }}"/>
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="razao_social">
-                    Razão social
-                </label>
-                <div class="col-span-2">
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="razao_social">Razão social</label>
+                <div class="col-span-4">
                     <input class="w-full rounded-md" type="text" class="" name="razao_social" id="razao_social" value="{{ $fii->razao_social }}"/>
                 </div>
             </div>
 
-            <div class="grid grid-cols-3 items-center">
-                <label class="text-right p-2" for="cnpj">
-                    CNPJ
-                </label>
-                <div class="col-span-2">
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="cnpj">CNPJ</label>
+                <div class="col-span-4">
                     <input class="w-full rounded-md" type="text" class="" name="cnpj" id="cnpj" value="{{ $fii->cnpj }}"/>
                 </div>
             </div>
 
-            <div class="col-span-2">
-                <div class="grid grid-cols-6 items-center">
-                    <label class="text-right p-2" for="descricao">Descricao</label>
-                    <textarea class="col-span-5 rounded-md" type="text" class="" name="descricao" id="descricao">{{ $fii->descricao }}</textarea>
+            <div class="grid grid-cols-6 items-center">
+                <label class="col-span-2 text-right p-2" for="url_fundsexplorer">URL Funds Explorer</label>
+                <div class="col-span-4">
+                    <input class="w-full rounded-md" type="text" class="" name="url_fundsexplorer" id="url_fundsexplorer" value="{{ $fii->url_fundsexplorer }}"/>
                 </div>
             </div>
 
             <div class="col-span-2">
                 <div class="grid grid-cols-6 items-center">
-                    <label class="text-right p-2" for="caracteristicas">Caracteristicas</label>
+                    <label class="col-span-1 text-right p-2" for="descricao">Descricao</label>
+                    <div class="col-span-5">
+                        <textarea class="w-full rounded-md" type="text" class="" name="descricao" id="descricao">{{ $fii->descricao }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-span-2">
+                <div class="grid grid-cols-6 items-center">
+                    <label class="col-span-1 text-right p-2" for="caracteristicas">Caracteristicas</label>
                     <textarea class="col-span-5 rounded-md" type="text" class="" name="caracteristicas" id="caracteristicas">{{ $fii->caracteristicas }}</textarea>
                 </div>
             </div>
@@ -171,14 +172,7 @@
                 </div>
             </div>
 
-            <div class="col-span-2">
-                <div class="grid grid-cols-6 items-center">
-                    <label class="text-right p-2" for="url_fundsexplorer">URL Funds Explorer</label>
-                    <div class="col-span-5">
-                        <input class="w-full rounded-md" type="text" class="" name="url_fundsexplorer" id="url_fundsexplorer" value="{{ $fii->url_fundsexplorer }}"/>
-                    </div>
-                </div>
-            </div>
+
 
             <div class="col-span-2">
                 <div class="w-full p-2">
@@ -190,5 +184,12 @@
 
         </div>
     </form>
+
+    <div class="mt-2 p-5 bg-neutral-100 w-full mx-auto rounded-lg shadow-[0_5px_9px_-4px_#3b71ca] grid grid-cols-2 gap-4">
+
+        @include('fiis.partials.dividendos-list2')
+        @include('fiis.partials.rendimentos-list2')
+
+    </div>
 
 @endsection
