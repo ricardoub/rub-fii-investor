@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Fiis\FiiController;
 use App\Http\Controllers\Fiis\AdministradoraFiiController;
 use App\Http\Controllers\Fiis\DividendYieldFiiController;
+use App\Http\Controllers\Fiis\RendimentoFiiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,20 @@ Route::middleware([
         Route::get('/{id}/show', [DividendYieldFiiController::class, 'show'])->name('show');
         Route::get('/{id}/edit', [DividendYieldFiiController::class, 'edit'])->name('edit');
         Route::post('/{id}/update', [DividendYieldFiiController::class, 'update'])->name('update');
+
+    });
+
+    Route::name('rendimentos.')->prefix('rendimentos')->group(function () {
+
+        Route::get('', [RendimentoFiiController::class, 'index'])->name('index');
+        Route::post('', [RendimentoFiiController::class, 'index'])->name('index');
+
+        Route::get('/create', [RendimentoFiiController::class, 'create'])->name('create');
+        Route::post('/store', [RendimentoFiiController::class, 'store'])->name('store');
+
+        Route::get('/{id}/show', [RendimentoFiiController::class, 'show'])->name('show');
+        Route::get('/{id}/edit', [RendimentoFiiController::class, 'edit'])->name('edit');
+        Route::post('/{id}/update', [RendimentoFiiController::class, 'update'])->name('update');
 
     });
 });

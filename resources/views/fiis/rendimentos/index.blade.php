@@ -9,11 +9,11 @@
         </div>
         <div class="grow items-center px-6 py-3">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight flex px-5 py-3">
-                {{ __('Cadastro Dividendos') }}
+                {{ __('Cadastro Rendimentos') }}
             </h2>
         </div>
         <div class="flex items-center px-6 py-3">
-            <a href="{{ route('dividendos.create') }}" class="border rounded-lg flex px-5 py-3">
+            <a href="{{ route('rendimentos.create') }}" class="border rounded-lg flex px-5 py-3">
                 {{ __('Incluir') }}
             </a>
         </div>
@@ -26,47 +26,35 @@
 
         <thead class="h-10 border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:bg-neutral-600">
             <tr>
+                <th scope="col" class="px-6 py-4">Competencia</th>
+                <th scope="col" class="px-6 py-4">FII</th>
+                <th scope="col" class="px-6 py-4">Data Com</th>
+                <th scope="col" class="px-6 py-4">Data Pagto</th>
+                <th scope="col" class="px-6 py-4">Valor Cota</th>
+                <th scope="col" class="px-6 py-4">Valor Rendimento</th>
+                <th scope="col" class="px-6 py-4">Dividend Yield</th>
                 <th scope="col" class="px-6 py-4"></th>
-                <th scope="col" class="px-6 py-4 bg-gray-200" colspan="4">Dividendo</th>
-                <th scope="col" class="px-6 py-4 bg-gray-200" colspan="5">Percentual</th>
-                <th scope="col" class="px-6 py-4"></th>
-            </tr>
-            <tr>
-                <th scope="col" class="text-center px-6 py-4">FII</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 1</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 3</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 6</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 12</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 1</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 3</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 6</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 12</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Desde IPO</th>
-                <th scope="col" class="text-center px-6 py-4">Ações</th>
             </tr>
         </thead>
 
         <tbody>
 
-            @foreach ($dividendos as $key => $dividendo)
+            @foreach ($rendimentos as $key => $rendimento)
                 @if($key % 2 == 0)
                     <tr class="border-b bg-neutral-50">
                 @else
                     <tr class="border-b bg-neutral-100">
                 @endif
-                    <th class="px-3 py-2 text-center">{{ $dividendo->fii->codigo }}</th>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_1 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_3 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_6 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_12 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->percentual_mes_1 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->percentual_mes_3 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->percentual_mes_6 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->percentual_mes_12 }}</td>
-                    <td class="px-3 py-2 text-center">{{ $dividendo->percentual_desde_ipo }}</td>
+                    <td class="px-3 py-2 text-center">{{ $rendimento->competencia }}</td>
+                    <th class="px-3 py-2 text-center">{{ $rendimento->fii_codigo }}</th>
+                    <td class="px-3 py-2 text-center">{{ $rendimento->data_com }}</td>
+                    <td class="px-3 py-2 text-center">{{ $rendimento->data_pagamento }}</td>
+                    <td class="px-3 py-2 text-center">{{ $rendimento->valor_cota }}</td>
+                    <td class="px-3 py-2 text-center">{{ $rendimento->valor_rendimento }}</td>
+                    <td class="px-3 py-2 text-center">{{ $rendimento->dividend_yield }}</td>
                     <td class="px-3 py-2">
                         <div class="" role="group">
-                            <a href="{{ route('dividendos.edit', $dividendo->id) }}" class="flex px-5 py-3 bg-neutral-200 hover:rounded-xl hover:bg-primary-500 hover:text-white">
+                            <a href="{{ route('rendimentos.edit', $rendimento->id) }}" class="flex px-5 py-3 bg-neutral-200 hover:rounded-xl hover:bg-primary-500 hover:text-white">
                                 {{ __('Alterar') }}
                             </a>
                         </div>
