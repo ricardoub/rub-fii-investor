@@ -14,6 +14,7 @@ class DividendYieldFii extends Model
     protected $fillable = [
 
         'fii_id',
+        'competencia',
         'valor_mes_1',
         'valor_mes_3',
         'valor_mes_6',

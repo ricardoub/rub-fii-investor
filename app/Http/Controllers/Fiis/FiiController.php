@@ -7,11 +7,21 @@ use App\Models\Fiis\AdministradoraFii;
 use App\Models\Fiis\Fii;
 use App\Models\Fiis\SegmentoFii;
 use App\Models\Fiis\TipoFii;
+use App\Services\Common\FormatService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class FiiController extends Controller
 {
+    private $fs;
+
+    public function __construct(
+        FormatService $formatService
+    )
+    {
+        $this->fs = $formatService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -114,17 +124,13 @@ class FiiController extends Controller
 
     private function setRequesFields_toEN_fromBR($request)
     {
-        if ($request['data_inicio']) {
-            $request['data_inicio'] = $this->formatData_toEN_fromBR($request['data_inicio']);
-        }
+        $request['data_inicio'] = $this->fs->formatData_toEN_fromBR($request['data_inicio']);
 
         return $request;
     }
     private function setModelFields_toBR_fromEN($model)
     {
-        if ($model->data_inicio) {
-            $model->data_inicio = $this->formatData_toBR_fromEN($model->data_inicio);
-        }
+        $model->data_inicio = $this->fs->formatData_toBR_fromEN($model->data_inicio);
 
         return $model;
     }

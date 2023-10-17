@@ -26,22 +26,22 @@
 
         <thead class="h-10 border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:bg-neutral-600">
             <tr>
-                <th scope="col" class="px-6 py-4"></th>
-                <th scope="col" class="px-6 py-4 bg-gray-200" colspan="4">Dividendo</th>
-                <th scope="col" class="px-6 py-4 bg-gray-200" colspan="5">Percentual</th>
-                <th scope="col" class="px-6 py-4"></th>
+                <th scope="col" class="px-6 py-4" colspan="2"></th>
+                <th scope="col" class="px-6 py-4" colspan="4">Dividendo</th>
+                <th scope="col" class="px-6 py-4" colspan="6">Percentual</th>
             </tr>
             <tr>
+                <th scope="col" class="text-center px-6 py-4">Competencia</th>
                 <th scope="col" class="text-center px-6 py-4">FII</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 1</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 3</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 6</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 12</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 1</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 3</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 6</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Mês 12</th>
-                <th scope="col" class="text-center px-6 py-4 bg-gray-200">Desde IPO</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 1</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 3</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 6</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 12</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 1</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 3</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 6</th>
+                <th scope="col" class="text-center px-6 py-4">Mês 12</th>
+                <th scope="col" class="text-center px-6 py-4">Desde IPO</th>
                 <th scope="col" class="text-center px-6 py-4">Ações</th>
             </tr>
         </thead>
@@ -54,7 +54,8 @@
                 @else
                     <tr class="border-b bg-neutral-100">
                 @endif
-                    <th class="px-3 py-2 text-center">{{ $dividendo->fii->codigo }}</th>
+                    <th class="px-3 py-2 text-center">{{ $dividendo->competencia }}</th>
+                    <th class="px-3 py-2 text-center">{{ $dividendo->fii_codigo }}</th>
                     <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_1 }}</td>
                     <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_3 }}</td>
                     <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_6 }}</td>

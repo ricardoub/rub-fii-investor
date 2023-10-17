@@ -30,6 +30,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('fii_id');
 
+            $table->string('competencia', 6)->nullable();
             $table->decimal('valor_mes_1', $precision = 9, $scale = 2)->nullable();
             $table->decimal('valor_mes_3', $precision = 9, $scale = 2)->nullable();
             $table->decimal('valor_mes_6', $precision = 9, $scale = 2)->nullable();

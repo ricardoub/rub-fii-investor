@@ -30,6 +30,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('fii_id');
 
+            $table->string('competencia', 6)->nullable();
             $table->date('data_com');
             $table->date('data_pagamento');
             $table->decimal('valor_cota', $precision = 10, $scale = 2);
