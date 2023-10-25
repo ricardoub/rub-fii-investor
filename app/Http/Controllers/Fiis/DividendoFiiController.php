@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Log;
 class DividendoFiiController extends Controller
 {
     private $fs;
-    private $db;
+    private $dbFii;
+    private $filters;
 
     public function __construct(
         FormatService $formatService
@@ -20,7 +21,8 @@ class DividendoFiiController extends Controller
     )
     {
         $this->fs = $formatService;
-        $this->db = $dbService;
+        $this->dbFii = $dbService;
+        $this->setFilters();
     }
 
     /**
@@ -28,7 +30,7 @@ class DividendoFiiController extends Controller
      */
     public function index()
     {
-        $dividendos = $this->db->dividendoFii_getAll_joinFii();
+        $dividendos = $this->dbFii->getAll_dividendoFii_joinFii($this->filters);
 
         return view('fiis.dividendos.index', compact('dividendos'));
     }
@@ -38,15 +40,11 @@ class DividendoFiiController extends Controller
      */
     public function create()
     {
-        $dy = new DividendoFii;
-        $dy->administradora_id = 0;
-        $dy->tipo_id = 0;
-        $dy->segmento_id = 0;
-
-        $fiis = $this->db->fii_getAll();
+        $dividendo = $this->dbFii->getNew_dividendoFii();
+        $fiis = $this->dbFii->getAll_fii();
 
         return view('fiis.dividendos.create', [
-            'dy' => $dy,
+            'dividendo' => $dividendo,
             'fiis' => $fiis,
         ]);
     }
@@ -58,9 +56,8 @@ class DividendoFiiController extends Controller
     {
         Log::debug($request->all());
 
-        $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
-
-        $dy = DividendoFii::create($requestAll);
+        //$requestAll = $this->setRequesFields_toEN_fromBR($request->all());
+        $dy = DividendoFii::create($request->all());
 
         return redirect()->route('dividendos.index');
 
@@ -80,9 +77,9 @@ class DividendoFiiController extends Controller
     public function edit(string $id)
     {
         $dividendo = DividendoFii::find($id);
-        $dividendo = $this->setModelFields_toBR_fromEN($dividendo);
+        //$dividendo = $this->setModelFields_toBR_fromEN($dividendo);
 
-        $fiis = $this->db->fii_getAll();
+        $fiis = $this->dbFii->getAll_fii();
 
         return view('fiis.dividendos.edit', [
             'dividendo' => $dividendo,
@@ -95,10 +92,10 @@ class DividendoFiiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
+        //$requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
         $dy = DividendoFii::find($id);
-        $dy->update($requestAll);
+        $dy->update($request->all());
 
         return redirect()->route('dividendos.index');
     }
@@ -109,6 +106,14 @@ class DividendoFiiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function setFilters()
+    {
+        $this->filters['form']['fii']['id']          = env('FILTERS_FORM_FII_ID');
+        $this->filters['form']['fii']['codigo']      = env('FILTERS_FORM_FII_CODIGO');
+        $this->filters['form']['fii']['competencia'] = env('FILTERS_FORM_FII_COMPETENCIA');
+
     }
 
     private function setRequesFields_toEN_fromBR($request) {

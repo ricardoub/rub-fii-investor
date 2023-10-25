@@ -3,18 +3,27 @@
 namespace App\Http\Controllers\Fiis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Fiis\AdministradoraFii;
+use App\Services\Fiis\FiiDBService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class AdministradoraFiiController extends Controller
 {
+    private $dbFii;
+
+    public function __construct(
+        FiiDBService $dbService
+    )
+    {
+        $this->dbFii = $dbService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $administradoras = AdministradoraFii::orderBy('nome', 'asc')->get();
+        $administradoras = $this->dbFii->getAll_administradoraFii(); // AdministradoraFii::orderBy('nome', 'asc')->get();
 
         return view('fiis.administradoras.index', [
             'administradoras' => $administradoras,
@@ -26,7 +35,7 @@ class AdministradoraFiiController extends Controller
      */
     public function create()
     {
-        $administradora = new AdministradoraFii();
+        $administradora = $this->dbFii->getNew_administradoraFii();
 
         return view('fiis.administradoras.create', [
             'administradora' => $administradora,
@@ -38,7 +47,7 @@ class AdministradoraFiiController extends Controller
      */
     public function store(Request $request)
     {
-        $fii = AdministradoraFii::create($request->all());
+        $administradora = $this->dbFii->create_administradoraFii($request);
 
         return redirect()->route('administradoras.index');
     }
@@ -56,17 +65,10 @@ class AdministradoraFiiController extends Controller
      */
     public function edit(string $id)
     {
-        $administradora = AdministradoraFii::find($id);
-
-        //$tipos = TipoFii::orderBy('nome', 'ASC')->get();
-        //$segmentos = SegmentoFii::orderBy('nome', 'ASC')->get();
-        //$administradoras = AdministradoraFii::orderBy('nome', 'ASC')->get();
+        $administradora = $this->dbFii->getById_administradoraFii($id);
 
         return view('fiis.administradoras.edit', [
             'administradora' => $administradora,
-            //'tipos' => $tipos,
-            //'segmentos' => $segmentos,
-            //'administradoras' => $administradoras,
         ]);
     }
 
@@ -75,9 +77,7 @@ class AdministradoraFiiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
-        $administradora = AdministradoraFii::find($id);
-        $administradora->update($request->all());
+        $administradora = $this->dbFii->update_administradoraFii($request, $id);
 
         return redirect()->route('administradoras.index');
     }

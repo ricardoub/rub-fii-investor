@@ -2,6 +2,8 @@
 
 namespace App\Models\Fiis;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,5 +56,23 @@ class Fii extends Model
     public function rendimentos()
     {
         return $this->hasMany(RendimentoFii::class);
+    }
+
+    /**
+     * Get/Set the attributes.
+     */
+    protected function dataInicio(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value ? Carbon::parse($value)->format('d/m/Y') : null,
+            set: fn (string|null $value) => $value ? Carbon::createFromFormat('d/m/Y', $value)->toDateString() : null,
+        );
+    }
+    protected function dataTermino(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => $value ? Carbon::parse($value)->format('d/m/Y') : null,
+            set: fn (string|null $value) => $value ? Carbon::createFromFormat('d/m/Y', $value)->toDateString() : null,
+        );
     }
 }

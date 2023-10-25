@@ -6,32 +6,36 @@ use App\Http\Controllers\Controller;
 use App\Models\Fiis\Fii;
 use App\Models\Fiis\RendimentoFii;
 use App\Services\Common\FormatService;
+use App\Services\Fiis\FiiDBService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
 class RendimentoFiiController extends Controller
 {
     private $fs;
+    private $dbFii;
+    private $filters;
 
     public function __construct(
-        FormatService $formatService
+        FormatService $formatService,
+        FiiDBService $fiiDBService
     )
     {
         $this->fs = $formatService;
+        $this->dbFii = $fiiDBService;
+        $this->setFilters();
     }
-    
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $rendimentos = $this->dbFii->getAll_rendimentoFii_joinFii($this->filters);
 
-        $rendimentos = RendimentoFii::select('*', 'fiis.codigo as fii_codigo')
-            ->leftJoin('fiis', 'fii_id', '=', 'fiis.id')
-            ->orderby('competencia', 'asc')
-            ->orderBy('codigo', 'asc')->get();
-
-        return view('fiis.rendimentos.index', compact('rendimentos'));
+        return view('fiis.rendimentos.index', [
+            'rendimentos' => $rendimentos,
+        ]);
 
     }
 
@@ -41,9 +45,8 @@ class RendimentoFiiController extends Controller
     public function create()
     {
         $rendimento = new RendimentoFii;
-        //$rendimento->administradora_id = 0;
-        //$rendimento->tipo_id = 0;
-        //$rendimento->segmento_id = 0;
+        $rendimento->fii_id      = $this->filters['form']['fii']['id'];
+        $rendimento->competencia = $this->filters['form']['fii']['competencia'];
 
         $fiis = Fii::orderBy('codigo', 'asc')->get();
 
@@ -60,11 +63,12 @@ class RendimentoFiiController extends Controller
     {
         Log::debug($request->all());
 
-        $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
+        //$requestAll = $this->setRequesFields_toEN_fromBR($request->all());
 
-        $rendimento = RendimentoFii::create($requestAll);
+        $rendimento = RendimentoFii::create($request->all());
 
-        return redirect()->route('rendimentos.index');
+        //return redirect()->route('rendimentos.index');
+        return redirect()->route('rendimentos.create');
     }
 
     /**
@@ -80,7 +84,15 @@ class RendimentoFiiController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $rendimento = RendimentoFii::find($id);
+        //$rendimento = $this->setModelFields_toBR_fromEN($rendimento);
+
+        $fiis = $this->dbFii->getAll_fii();
+
+        return view('fiis.rendimentos.edit', [
+            'rendimento' => $rendimento,
+            'fiis' => $fiis,
+        ]);
     }
 
     /**
@@ -88,7 +100,12 @@ class RendimentoFiiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $requestAll = $request->all(); //$this->setRequesFields_toEN_fromBR($request->all());
+
+        $rendimento = RendimentoFii::find($id);
+        $rendimento->update($requestAll);
+
+        return redirect()->route('rendimentos.index');
     }
 
     /**
@@ -97,6 +114,14 @@ class RendimentoFiiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    private function setFilters()
+    {
+        $this->filters['form']['fii']['id']          = env('FILTERS_FORM_FII_ID');
+        $this->filters['form']['fii']['codigo']      = env('FILTERS_FORM_FII_CODIGO');
+        $this->filters['form']['fii']['competencia'] = env('FILTERS_FORM_FII_COMPETENCIA');
+
     }
 
     private function setRequesFields_toEN_fromBR($request) {

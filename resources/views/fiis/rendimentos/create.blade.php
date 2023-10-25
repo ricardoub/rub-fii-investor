@@ -26,10 +26,6 @@
             @csrf
 
             <div class="grid grid-cols-10 items-center p-3">
-                <div class="col-span-4 grid grid-cols-10 gap-2">
-                    <label class="col-span-3 text-right p-2" for="fii_id">Competencia</label>
-                    <input x-mask="999999" class="col-span-7 rounded-md p-2" type="text" name="competencia" id="competencia" value="{{ old('competencia', $rendimento->competencia) }}"/>
-                </div>
                 <div class="col-span-6 grid grid-cols-10 gap-2">
                     <label class="col-span-3 text-right p-2" for="fii_id">Fundo Imobiliario</label>
                     <div class="col-span-7">
@@ -48,6 +44,10 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-span-4 grid grid-cols-10 gap-2">
+                    <label class="col-span-3 text-right p-2" for="fii_id">Competencia</label>
+                    <input autofocus x-mask="999999" class="col-span-7 rounded-md p-2" type="text" name="competencia" id="competencia" value="{{ old('competencia', $rendimento->competencia) }}"/>
+                </div>
             </div>
 
             <div class="p-3 items-center">
@@ -60,7 +60,11 @@
                     <label class="p-2" for="dividend_yield">Dividend Yield</label>
                 </div>
                 <div class="grid grid-cols-5 gap-4">
-                    <div class="grid grid-cols-10 gap-1 items-center"><input x-mask="99/99/9999" class="col-span-8 text-right rounded-md" type="text" name="data_com"         id="data_com"         value="{{ old('data_com',         old('data_com', $rendimento->data_com)) }}"/><span class="col-span-2 text-left text-gray-500"></span></div>
+                    <div class="grid grid-cols-10 gap-1 items-center">
+                        <input x-mask="99/99/9999" class="col-span-8 text-right rounded-md" type="text" name="data_com" id="data_com"
+                            value="{{ old('data_com', old('data_com', $rendimento->data_com ?? '')) }}"/>
+                        <span class="col-span-2 text-left text-gray-500"></span>
+                    </div>
                     <div class="grid grid-cols-10 gap-1 items-center"><input x-mask="99/99/9999" class="col-span-8 text-right rounded-md" type="text" name="data_pagamento"   id="data_pagamento"   value="{{ old('data_pagamento',   old('data_pagamento', $rendimento->data_pagamento)) }}"/><span class="col-span-2 text-left text-gray-500"></span></div>
                     <div class="grid grid-cols-10 gap-1 items-center"><input class="col-span-8 text-right rounded-md" type="text" name="valor_cota"       id="valor_cota"       value="{{ old('valor_cota',       old('valor_cota', $rendimento->valor_cota)) }}"/><span class="col-span-2 text-left text-gray-500">R$</span></div>
                     <div class="grid grid-cols-10 gap-1 items-center"><input class="col-span-8 text-right rounded-md" type="text" name="valor_rendimento" id="valor_rendimento" value="{{ old('valor_rendimento', old('valor_rendimento', $rendimento->valor_rendimento)) }}"/><span class="col-span-2 text-left text-gray-500">R$</span></div>

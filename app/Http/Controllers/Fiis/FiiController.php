@@ -16,16 +16,16 @@ use Illuminate\Support\Facades\Log;
 
 class FiiController extends Controller
 {
-    private $fs;
-    private $db;
+    //private $fs;
+    private $dbFii;
 
     public function __construct(
-        FormatService $formatService
-        ,FiiDBService $dbService
+        //FormatService $formatService
+        FiiDBService $dbService
     )
     {
-        $this->fs = $formatService;
-        $this->db = $dbService;
+        //$this->fs = $formatService;
+        $this->dbFii = $dbService;
     }
 
     /**
@@ -33,7 +33,7 @@ class FiiController extends Controller
      */
     public function index()
     {
-        $fiis = $this->db->fii_getAll();
+        $fiis = $this->dbFii->getAll_fii();
 
         return view('fiis.index', compact('fiis'));
     }
@@ -43,14 +43,11 @@ class FiiController extends Controller
      */
     public function create()
     {
-        $fii = $this->db->fii_getNew();
-        $fii->administradora_id = 0;
-        $fii->segmento_id = 0;
-        $fii->tipo_id = 0;
+        $fii = $this->dbFii->getNew_fii();
 
-        $administradoras = $this->db->administradoraFii_getAll();
-        $segmentos = $this->db->segmentoFii_getAll();
-        $tipos = $this->db->tipoFii_getAll();
+        $administradoras = $this->dbFii->getAll_administradoraFii();
+        $segmentos = $this->dbFii->getAll_segmentoFii();
+        $tipos = $this->dbFii->getAll_tipoFii();
 
         return view('fiis.create', [
             'fii' => $fii,
@@ -66,9 +63,7 @@ class FiiController extends Controller
      */
     public function store(Request $request)
     {
-        $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
-
-        $fii = $this->db->fii_create($requestAll);
+        $fii = $this->dbFii->create_fii($request);
 
         return redirect()->route('fiis.index');
     }
@@ -78,7 +73,7 @@ class FiiController extends Controller
      */
     public function show(string $id)
     {
-        $fii = $this->db->fii_getById($id);
+        $fii = $this->dbFii->getById_fii($id);
 
         return view('fiis.show', compact('fii'));
     }
@@ -88,28 +83,17 @@ class FiiController extends Controller
      */
     public function edit(string $id)
     {
-        $fii = $this->db->fii_getById($id);
-        $fii = $this->setModelFields_toBR_fromEN($fii);
+        $fii = $this->dbFii->getById_fii($id);
 
-        $administradoras = $this->db->administradoraFii_getAll();
-        $segmentos = $this->db->segmentoFii_getAll();
-        $tipos = $this->db->tipoFii_getAll();
-
-        //$dividendos = $this->db->dividendoFii_getById_joinFii();
-        //$dividendos = []; //DividendoFii::where('fii_id', $fii->id)->orderBy('competencia', 'ASC')->get();
-        //$rendimentos = []; //RendimentoFii::where('fii_id', $fii->id)->orderBy('competencia', 'ASC')->get();
-
-        Log::debug($fii);
-        Log::debug($fii->dividendos);
-        Log::debug($fii->rendimentos);
+        $administradoras = $this->dbFii->getAll_administradoraFii();
+        $segmentos = $this->dbFii->getAll_segmentoFii();
+        $tipos = $this->dbFii->getAll_tipoFii();
 
         return view('fiis.edit', [
             'fii' => $fii,
             'tipos' => $tipos,
             'segmentos' => $segmentos,
             'administradoras' => $administradoras,
-            //'dividendos' => $dividendos,
-            //'rendimentos' => $rendimentos,
         ]);
     }
 
@@ -118,10 +102,7 @@ class FiiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $requestAll = $this->setRequesFields_toEN_fromBR($request->all());
-
-        $fii = $this->db->fii_getById($id);
-        $fii->update($requestAll);
+        $fii = $this->dbFii->update_fii($request, $id);
 
         return redirect()->route('fiis.index');
     }
@@ -135,17 +116,4 @@ class FiiController extends Controller
         //
     }
 
-
-    private function setRequesFields_toEN_fromBR($request)
-    {
-        $request['data_inicio'] = $this->fs->formatData_toEN_fromBR($request['data_inicio']);
-
-        return $request;
-    }
-    private function setModelFields_toBR_fromEN($model)
-    {
-        $model->data_inicio = $this->fs->formatData_toBR_fromEN($model->data_inicio);
-
-        return $model;
-    }
 }

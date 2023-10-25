@@ -2,6 +2,7 @@
 
     <thead class="h-10 border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:bg-neutral-600">
         <tr>
+            <th scope="col" class="px-6 py-4">#</th>
             <th scope="col" class="px-6 py-4">Competencia</th>
             <th scope="col" class="px-6 py-4">FII</th>
             <th scope="col" class="px-6 py-4">Data Com</th>
@@ -21,8 +22,9 @@
             @else
                 <tr class="border-b bg-neutral-100">
             @endif
+                <th class="px-3 py-2 text-center">{{ $rendimento->id }}</th>
                 <td class="px-3 py-2 text-center">{{ $rendimento->competencia }}</td>
-                <th class="px-3 py-2 text-center">{{ $rendimento->fii_codigo }}</th>
+                <th class="px-3 py-2 text-center">{{ $rendimento->codigo }}</th>
                 <td class="px-3 py-2 text-center">{{ $rendimento->data_com }}</td>
                 <td class="px-3 py-2 text-center">{{ $rendimento->data_pagamento }}</td>
                 <td class="px-3 py-2 text-center">{{ $rendimento->valor_cota }}</td>

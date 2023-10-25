@@ -26,7 +26,7 @@ return new class extends Migration
          * 100.000.000.000.000,00 (17,2)
          */
 
-         Schema::create('fiis_dividendyields', function (Blueprint $table) {
+         Schema::create('fiis_dividendos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('fii_id');
 
@@ -54,6 +54,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('fiis_dividendyields');
+        Schema::dropIfExists('fiis_dividendos');
     }
 };

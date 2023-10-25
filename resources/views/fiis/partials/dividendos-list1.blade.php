@@ -2,13 +2,14 @@
 
     <thead class="h-10 border-b bg-neutral-200 font-medium dark:border-neutral-500 dark:bg-neutral-600">
         <tr>
-            <th scope="col" class="px-6 py-4" colspan="2"></th>
+            <th scope="col" class="px-6 py-4" colspan="3"></th>
             <th scope="col" class="px-6 py-4" colspan="5">Dividendo</th>
             <th scope="col" class="px-6 py-4" colspan="5">Percentual</th>
             <th scope="col" class="px-6 py-4" colspan="1"></th>
 
         </tr>
         <tr>
+            <th scope="col" class="px-6 py-4">#</th>
             <th scope="col" class="text-center px-6 py-4">Competencia</th>
             <th scope="col" class="text-center px-6 py-4">FII</th>
             <th scope="col" class="text-center px-6 py-4">Mês 1</th>
@@ -34,8 +35,9 @@
             @else
                 <tr class="border-b bg-neutral-100">
             @endif
+                <th class="px-3 py-2 text-center">{{ $dividendo->id }}</th>
                 <th class="px-3 py-2 text-center">{{ $dividendo->competencia }}</th>
-                <th class="px-3 py-2 text-center">{{ $dividendo->fii_codigo }}</th>
+                <th class="px-3 py-2 text-center">{{ $dividendo->codigo }}</th>
                 <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_1 }}</td>
                 <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_3 }}</td>
                 <td class="px-3 py-2 text-center">{{ $dividendo->valor_mes_6 }}</td>
